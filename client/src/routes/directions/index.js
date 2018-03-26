@@ -8,7 +8,9 @@ import MapPane from '../../components/LeafletOsmMap/MapPane';
 import '../../../node_modules/leaflet/dist/leaflet.css';
 import '../../../node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import L from '../../js/leaflet-tileLayer-pouchdb-cached';
-import Routing from '../../../node_modules/leaflet-routing-machine/src/index.js';
+import '../../../node_modules/leaflet-routing-machine/src/index.js';
+import 'leaflet-easybutton';
+import '../../js/lrm-google';
 
 /**
  * TIle layer configuration and attribution constants
@@ -49,15 +51,19 @@ export default class Directions extends Component {
   componentDidMount() {
     const map = L.map('map');
     map.addLayer(OSM_TILE_LAYER);
-
-    const control = Routing.control({
-        waypoints: [
-            L.latLng(this.state.whiteHouse.lat,
-              this.state.whiteHouse.lng),
-            L.latLng(this.state.airport.lat,
-              this.state.airport.lng),
-        ],
-        routeWhileDragging: true,
+    const control = L.Routing.control({
+      waypoints: [
+        L.latLng(this.state.origin.lat,
+          this.state.origin.lng),
+        L.latLng(this.state.destination.lat,
+          this.state.destination.lng),
+      ],
+      routeWhileDragging: true,
+      reverseWaypoints: true,
+      showAlternatives: true,
+      show: false,
+      collapsible: false,
+      router: L.Routing.google(),
     }).addTo(map);
 
     map.on('click', function(event) {
