@@ -63,7 +63,7 @@ export default class Directions extends Component {
       showAlternatives: true,
       show: false,
       collapsible: false,
-      router: L.Routing.google(),
+      router: L.Routing.google({}, OSM_TILE_LAYER),
     }).addTo(map);
 
     map.on('click', function(event) {
