@@ -1,6 +1,8 @@
+// node_module imports
 import { h, Component } from "preact";
+
+// app module imports
 import style from "./style";
-import MapPane from '../../components/LeafletOsmMap/MapPane';
 
 /**
  * Leaflet related imports: leaflet, pouchdb module, and routing machine module
@@ -9,7 +11,6 @@ import '../../../node_modules/leaflet/dist/leaflet.css';
 import '../../../node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import L from '../../js/leaflet-tileLayer-pouchdb-cached';
 import '../../../node_modules/leaflet-routing-machine/src/index.js';
-import 'leaflet-easybutton';
 import '../../js/lrm-google';
 
 /**
@@ -53,10 +54,10 @@ export default class Directions extends Component {
     map.addLayer(OSM_TILE_LAYER);
     const control = L.Routing.control({
       waypoints: [
-        L.latLng(this.state.origin.lat,
-          this.state.origin.lng),
-        L.latLng(this.state.destination.lat,
-          this.state.destination.lng),
+        L.latLng(this.state.whiteHouse.lat,
+          this.state.whiteHouse.lng),
+        L.latLng(this.state.airport.lat,
+          this.state.airport.lng),
       ],
       routeWhileDragging: true,
       reverseWaypoints: true,
@@ -91,7 +92,7 @@ export default class Directions extends Component {
   render() {
     return (
       <div class={style.directions}>
-        <MapPane height={screen.height * 0.95}/>
+        <div id="map" style={{height: this.props.paneHeight}}/>
       </div>
     );
   }
